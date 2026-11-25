@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -120,6 +121,15 @@ export default function lifetechReact(options = {}) {
         config.root || process.cwd()
       );
 
+      const requireFromProject = createRequire(
+        path.join(projectRoot, 'package.json')
+      );
+
+      const reactPath = requireFromProject.resolve('react');
+      const reactDomPath = requireFromProject.resolve('react-dom');
+      const reactDomClientPath =
+      requireFromProject.resolve('react-dom/client');
+
       // Reset virtual modules for this build.
       virtualModules = {};
 
@@ -187,6 +197,24 @@ export default function lifetechReact(options = {}) {
       };
 
       return {
+        resolve: {
+          alias: [
+            {
+              find: /^react$/,
+              replacement: reactPath
+            },
+            {
+              find: /^react-dom$/,
+              replacement: reactDomPath
+            },
+            {
+              find: /^react-dom\/client$/,
+              replacement: reactDomClientPath
+            }
+          ],
+          dedupe: ['react', 'react-dom']
+        },
+        
         build: {
           manifest: true,
           assetsDir: 'Assets',
