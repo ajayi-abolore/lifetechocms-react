@@ -4,21 +4,22 @@ React and Vite integration for building and exporting [LifeTechOCMS](https://git
 
 The package turns React Layouts and Views into a LifeTechOCMS theme containing HTML entry files and compiled JavaScript/CSS assets. It provides a Vite plugin and the `lt-export` command.
 
-> **Version:** 0.1.4 — initial public-release candidate. Tested with React 19 and Vite 8. Additional environments are not yet verified.
+> **Next release:** v0.1.7 (in preparation). The currently published version is v0.1.6. Tested with React 19, Vite 8, JSX and TSX Views, and a working LifeTechOCMS theme import. Broader environment compatibility remains to be verified.
 
 ## Requirements
 
-- Node.js compatible with your installed Vite 8 version
+- Node.js version compatible with your installed Vite 8 release
 - React 19 and React DOM 19
 - Vite 8 and `@vitejs/plugin-react`
-- A LifeTechOCMS installation for importing and testing the exported theme
+- A LifeTechOCMS installation for importing and testing exported themes
+- TypeScript and React type definitions if you use `.tsx` files
 
 ## Install
 
 From the root of an existing React/Vite application:
 
 ```bash
-npm install -D @lifetechocms/react@0.1.4
+npm install -D @lifetechocms/react
 ```
 
 If starting a new application:
@@ -27,8 +28,16 @@ If starting a new application:
 npm create vite@latest ThemeLtReactDemo -- --template react
 cd ThemeLtReactDemo
 npm install
-npm install -D @lifetechocms/react@0.1.4
+npm install -D @lifetechocms/react
 ```
+
+To use TypeScript in a JavaScript-based Vite project, install the TypeScript tooling:
+
+```bash
+npm install -D typescript @types/react @types/react-dom
+```
+
+> On Windows PowerShell, use `npm.cmd` instead of `npm` if the PowerShell execution policy blocks the npm script.
 
 ## Configure Vite
 
@@ -65,6 +74,7 @@ src/
 └── Views/
     ├── Home.jsx
     ├── About.jsx
+    ├── Contact.tsx
     └── auth/
         └── Login.jsx
 ```
@@ -84,7 +94,7 @@ export default function Default({ children }) {
 }
 ```
 
-Each View must also **default-export** a React component:
+Each View must also **default-export** a React component. JavaScript/JSX example:
 
 ```jsx
 // src/Views/Home.jsx
@@ -93,7 +103,31 @@ export default function Home() {
 }
 ```
 
-Nested Views such as `src/Views/auth/Login.jsx` are discovered recursively. If no Layout is found, the exporter generates a minimal Default Layout automatically.
+TypeScript/TSX example:
+
+```tsx
+// src/Views/Contact.tsx
+type ContactDetails = {
+  title: string;
+  description: string;
+};
+
+export default function Contact() {
+  const contact: ContactDetails = {
+    title: 'Contact Us',
+    description: 'This View uses React and TypeScript.'
+  };
+
+  return (
+    <section>
+      <h2>{contact.title}</h2>
+      <p>{contact.description}</p>
+    </section>
+  );
+}
+```
+
+JSX and TSX Views have been tested successfully in the export workflow. Nested Views such as `src/Views/auth/Login.jsx` are discovered recursively. If no Layout is found, the exporter generates a minimal Default Layout automatically.
 
 ## Export a LifeTechOCMS theme
 
@@ -113,7 +147,7 @@ Then run:
 npm run lt-export
 ```
 
-The CLI builds the React entries into `dist-lifetech/`, then creates an export at:
+The CLI builds React entries into `dist-lifetech/`, then creates an export at:
 
 ```text
 lt-exports/
@@ -126,16 +160,25 @@ lt-exports/
     ├── Views/
     │   ├── Home.html
     │   ├── About.html
+    │   ├── Contact.html
     │   └── auth/
     │       └── Login.html
     └── Storage/          (when layout mappings are generated)
 ```
 
-The exact files depend on your application and generated assets. The exporter can also generate layout mapping files when applicable.
+The exact files depend on the application and generated assets. For example, `Contact.tsx` is compiled into browser-compatible JavaScript and exported as `Contact.html` with its associated JavaScript assets. The exporter can also generate layout mapping files when applicable.
+
+### Standard Vite build versus LifeTechOCMS export
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the normal Vite development server |
+| `npm run build` | Build the standard React application into `dist/` |
+| `npm run lt-export` | Build and export a LifeTechOCMS theme |
 
 ## Install and test in LifeTechOCMS
 
-Import the exported `ThemeLtReactDemo` theme using your LifeTechOCMS theme-management workflow. Activate or preview it, then verify that the Layout, Views, nested routes, and compiled assets load as expected.
+Import the exported `ThemeLtReactDemo` theme using the LifeTechOCMS theme-management workflow. Activate or preview it, then verify that the Layout, Views, nested routes, and compiled assets load as expected.
 
 LifeTechOCMS remains responsible for its own routing, pages, content management, and server-side processing. This package generates React-based theme resources; it does not replace the LifeTechOCMS backend.
 
@@ -148,18 +191,52 @@ LifeTechOCMS remains responsible for its own routing, pages, content management,
 | `@lifetechocms/react/exporter` | Theme exporter utilities |
 | `lt-export` | Build and export a LifeTechOCMS theme |
 
+## Local plugin development
+
+Contributors can test plugin changes against a separate React application without publishing each change to npm.
+
+```text
+frontendApp/
+├── lifetechocms-react/   # Plugin source
+└── plugin-dev/           # Independent Vite/React test application
+```
+
+From the plugin directory:
+
+```bash
+npm install
+npm link
+```
+
+From the test application's directory:
+
+```bash
+npm link @lifetechocms/react
+npm ls @lifetechocms/react
+npm run lt-export
+```
+
+`npm link` connects the test application to the local plugin source. An `extraneous` label in `npm ls` can appear when a locally linked package is not listed in the test application's `package.json`; the link itself can still work.
+
+The CLI and plugin support using dependencies from the consuming application when working with a separately linked plugin. This workflow has been tested with Vite 8 and React 19.
+
+For full setup, testing, Git workflow, and pull-request instructions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Development notes
 
-- Keep the Vite plugin registered in `vite.config.js` for both ordinary builds and LifeTech exports.
-- `npm run build` performs the application's standard Vite build; `npm run lt-export` creates a LifeTechOCMS theme export.
+- Keep the Vite plugin registered in `vite.config.js` for both ordinary builds and LifeTechOCMS exports.
 - The exporter requires the configured Views directory to exist.
-- Layouts and Views must have default component exports.
+- Layouts and Views must default-export React components.
 - Avoid View names that generate identical flattened asset names (for example, `Admin/Dashboard.jsx` and `Admin_Dashboard.jsx`).
-- This release has been tested with a separately installed npm tarball and a working LifeTechOCMS theme import; broader compatibility testing is ongoing.
+- A generated Default Layout is a fallback; add `src/Layouts/Default.jsx` or `.tsx` to test a custom Layout.
+- Validate exported themes in LifeTechOCMS, not only in the Vite development server.
+- React 19, Vite 8, JSX/TSX Views, and theme import have been tested; broader compatibility testing is ongoing.
 
 ## Issues and contributions
 
-Report bugs, compatibility issues, and feature requests at the [LifeTechOCMS issue tracker](https://github.com/lifetechOCMS/lifetechocms/issues).
+Report bugs, compatibility issues, and feature requests at the [LifeTechOCMS-React issue tracker](https://github.com/ajayi-abolore/lifetechocms-react/issues). When reporting an issue, identify `@lifetechocms/react` and include your package version, Vite/React versions, relevant commands, and error output.
+
+Developers wishing to improve the plugin should read the [Contribution Guide](./CONTRIBUTING.md) before opening a pull request.
 
 ## License
 
