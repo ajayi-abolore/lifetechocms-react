@@ -211,7 +211,7 @@ Maintainers may request changes. Commit those changes to the same branch and pus
 
 ## Issues and support
 
-Use the [central LifeTechOCMS issue tracker](https://github.com/lifetechOCMS/lifetechocms/issues) for bugs, suggestions, and compatibility reports. State clearly that the issue concerns `@lifetechocms/react` and include the package, Node.js, React, and Vite versions where relevant.
+Use the [central LifeTechOCMS issue tracker](https://github.com/ajayi-abolore/lifetechocms-react/issues) for bugs, suggestions, and compatibility reports. State clearly that the issue concerns `@lifetechocms/react` and include the package, Node.js, React, and Vite versions where relevant.
 
 Do not post credentials, access tokens, or other secrets in issues, logs, or pull requests.
 
@@ -223,4 +223,4 @@ Contributors should **not** change the package version, create release tags, or 
 
 - [README — Installation, configuration, and theme export](./README.md)
 - [LifeTechOCMS framework repository](https://github.com/lifetechOCMS/lifetechocms)
-- [LifeTechOCMS issue tracker](https://github.com/lifetechOCMS/lifetechocms/issues)
+- [LifeTechOCMS-React issue tracker](https://github.com/ajayi-abolore/lifetechocms-react/issues)

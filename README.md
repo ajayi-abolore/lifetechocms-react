@@ -215,34 +215,9 @@ LifeTechOCMS remains responsible for its own routing, pages, content management,
 | `@lifetechocms/react/exporter` | Theme exporter utilities |
 | `lt-export` | Build and export a LifeTechOCMS theme |
 
-## Local plugin development
+## CONTRIBUTION
 
 Contributors can test plugin changes against a separate React application without publishing each change to npm.
-
-```text
-frontendApp/
-├── lifetechocms-react/   # Plugin source
-└── plugin-dev/           # Independent Vite/React test application
-```
-
-From the plugin directory:
-
-```bash
-npm install
-npm link
-```
-
-From the test application's directory:
-
-```bash
-npm link @lifetechocms/react
-npm ls @lifetechocms/react
-npm run lt-export
-```
-
-`npm link` connects the test application to the local plugin source. An `extraneous` label in `npm ls` can appear when a locally linked package is not listed in the test application's `package.json`; the link itself can still work.
-
-The CLI and plugin support using dependencies from the consuming application when working with a separately linked plugin. This workflow has been tested with Vite 8 and React 19.
 
 For full setup, testing, Git workflow, and pull-request instructions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
