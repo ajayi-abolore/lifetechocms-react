@@ -3,10 +3,12 @@
 <p align="center">
   <img src="./ltlogo.png" alt="LifeTechOCMS Logo" width="150">
 </p>
+<p align="center">
 
 [![npm Downloads](https://img.shields.io/npm/dm/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
 [![npm Version](https://img.shields.io/npm/v/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
 [![npm Downloads](https://img.shields.io/npm/dt/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
+</p>
 
 **React and Vite integration for building and exporting [LifeTechOCMS](https://github.com/lifetechOCMS/lifetechocms) themes.**
 
