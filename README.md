@@ -1,11 +1,19 @@
 # @lifetechocms/react
 
-React and Vite integration for building and exporting [LifeTechOCMS](https://github.com/lifetechOCMS/lifetechocms) themes.
+**React and Vite integration for building and exporting [LifeTechOCMS](https://github.com/lifetechOCMS/lifetechocms) themes.**
 
-The package turns React Layouts and Views into a LifeTechOCMS theme containing HTML entry files and compiled JavaScript/CSS assets. It provides a Vite plugin and the `lt-export` command.
+LifeTechOCMS is a PHP-based modular framework with Role-Based Access Control (RBAC). Its backend dynamically manages menus, pages, and content based on user roles and permissions. Unauthenticated visitors are assigned the **anonymous** role.
 
-> **Next release:** v0.1.7 (in preparation). The currently published version is v0.1.6. Tested with React 19, Vite 8, JSX and TSX Views, and a working LifeTechOCMS theme import. Broader environment compatibility remains to be verified.
+`@lifetechocms/react` enables developers to build React applications using JSX, TSX, and Vite, then compile and export them as LifeTechOCMS-compatible themes.
 
+LifeTechOCMS uses a Layout and Page architecture, allowing React-based layouts to work with dynamic content from different modules, independently of the frontend technology used.
+
+### Practical Development
+
+The [ThemeLtReactKit](https://github.com/ajayi-abolore/ThemeLtReactKit) project is being developed to test React integration and establish conventions for future theme developers.
+
+We also plan to publish more themes in the [LifeTechOCMS Theme Marketplace](https://www.lifetech.host/hubs/community/products?product=theme).
+ 
 ## Requirements
 
 - Node.js version compatible with your installed Vite 8 release
@@ -61,7 +69,16 @@ export default defineConfig({
 });
 ```
 
-The `themeName` option is required. Layouts and Views directories can be customized. The plugin generates LifeTechOCMS build entries only when invoked by `lt-export`; ordinary Vite development/build commands remain separate.
+### Configuration Options
+
+- **`themeName`** (required): The name of the theme to be exported and installed in LifeTechOCMS.
+- **`layoutsDirectory`**: The directory path containing your React Layout components. Set this to the location of your layouts in your project.
+- **`viewsDirectory`**: The directory path containing your React page components (Views). Set this to the location of your pages in your project.
+
+The directory paths are relative to your project's root folder and can be customized to match your existing React application structure.
+
+The plugin generates LifeTechOCMS build entries only when invoked using `lt-export`. Normal Vite development and build commands remain separate.
+
 
 ## Create Layouts and Views
 
