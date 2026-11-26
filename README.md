@@ -6,34 +6,24 @@
 
 <!-- npm Version -->
 [![npm Version](https://img.shields.io/npm/v/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- Monthly Downloads -->
 [![npm Monthly Downloads](https://img.shields.io/npm/dm/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- Total Downloads -->
 [![npm Total Downloads](https://img.shields.io/npm/dt/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- npm License -->
 [![npm License](https://img.shields.io/npm/l/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- npm Unpacked Size -->
 [![npm Unpacked Size](https://img.shields.io/npm/unpacked-size/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- npm Package Size -->
 [![npm Package Size](https://img.shields.io/npm/size/@lifetechocms/react)](https://www.npmjs.com/package/@lifetechocms/react)
-
 <!-- npm Dependencies -->
 [![npm Dependencies](https://img.shields.io/librariesio/release/npm/@lifetechocms/react)](https://libraries.io/npm/%40lifetechocms%2Freact)
-
 <!-- GitHub Stars -->
 [![GitHub Stars](https://img.shields.io/github/stars/ajayi-abolore/lifetechocms-react)](https://github.com/ajayi-abolore/lifetechocms-react/stargazers)
-
 <!-- GitHub Forks -->
 [![GitHub Forks](https://img.shields.io/github/forks/ajayi-abolore/lifetechocms-react)](https://github.com/ajayi-abolore/lifetechocms-react/forks)
-
 <!-- GitHub Issues -->
 [![GitHub Issues](https://img.shields.io/github/issues/ajayi-abolore/lifetechocms-react)](https://github.com/ajayi-abolore/lifetechocms-react/issues)
-
 <!-- GitHub Last Commit -->
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/ajayi-abolore/lifetechocms-react)](https://github.com/ajayi-abolore/lifetechocms-react/commits/main)
 
